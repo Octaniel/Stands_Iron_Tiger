@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import model.Cliente;
+import model.Validacao;
 
 /**
  *
@@ -336,6 +337,7 @@ public class Cliente_View extends javax.swing.JInternalFrame {
 
     private void cliaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cliaddActionPerformed
         Cliente_Impl cd = new Cliente_Impl();
+        Validacao val=new Validacao();
         Cliente c = new Cliente();
         c.setNome(clinome.getText());
         c.setData_de_nascimento(clidata.getDate());
@@ -348,6 +350,8 @@ public class Cliente_View extends javax.swing.JInternalFrame {
         c.setEmail(cliemail.getText());
         c.setTipo_de_documento(clitipodocumento.getSelectedItem().toString());
         c.setDocumento_de_identificacao(Integer.parseInt(clinumeroducumento.getText()));
+        String s= val.validar_Data_Ano(clidata.getDate());
+        if(s.length()==0){
         cd.adicionar(c);
         cd.pesquisar(clipesquisa.getText(), clitabela);
         clinome.setText("");
@@ -359,6 +363,9 @@ public class Cliente_View extends javax.swing.JInternalFrame {
         cliemail.setText("");
         clinumeroducumento.setText("");
         clitelefone.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null, s);
+        }
     }//GEN-LAST:event_cliaddActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
